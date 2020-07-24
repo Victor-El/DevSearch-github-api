@@ -1,0 +1,20 @@
+:root {
+    /*prop: val*/
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    height: 30px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkgrey;
+    color: white;
+}
