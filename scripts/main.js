@@ -22,6 +22,10 @@ function toggleAnimation() {
     };
 }
 
+function populateDOMWithResult() {
+    
+}
+
 const anim = toggleAnimation();
 
 function toggleInputsDisabled() {

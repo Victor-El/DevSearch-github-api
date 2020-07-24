@@ -24,6 +24,52 @@ main, header {
     padding: 15px;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80vw;
+    align-items: center;
+}
+
+#users-list {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #FFFDEE;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px 1px #DDD;
+}
+
+.user-item-avatar {
+    height: 15%;
+    width: 15%;
+    margin: 20px;
+    border-radius: 50%;
+}
+
+#heading {
+    text-align: center;
+}
+
+#search-area {
+    display: flex;
+    justify-content: center;
+}
+
+#search-btn {
+    margin: 0px 15px;
+}
+
 #spinner {
     visibility: hidden;
     background-color: grey;
@@ -34,8 +80,7 @@ main, header {
     margin: 0;
     border-radius: 50%;
     position: absolute;
-    top: 77px;
-    left: 260px;
+    left: calc(50% + 120px);
     
     animation-name: loading;
     animation-timing-function: ease-in;
