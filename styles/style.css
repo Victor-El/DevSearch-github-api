@@ -18,3 +18,7 @@ footer {
     background-color: darkgrey;
     color: white;
 }
+
+main, header {
+    padding: 15px;
+}
