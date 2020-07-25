@@ -144,6 +144,12 @@ function populateDOMWithResult(userData) {
     githubProfile.appendChild(githubProfileTextNode);
     // Put githubProfile into userLinks
     userLinks.appendChild(githubProfile);
+    
+    // enclose the userItem within an li
+    enclosingListItem.appendChild(userItem);
+    
+    // add enclosingListItem to userList
+    userList.appendChild(enclosingListItem);
 }
 
 const anim = toggleAnimation();
