@@ -120,6 +120,27 @@ function populateDOMWithResult(userData) {
     // Put userBio into userItem
     userItem.appendChild(userBio);
     
+    const userItemExtra = document.createElement('div');
+    userItemExtra.classList.add("user-item-extra");
+    // Put userItemExtra into userItem
+    userItem.appendChild(userItemExtra);
+    
+    const type = document.createElement('h4');
+    type.classList.add("user-item-type");
+    const typeTextNode = document.createTextNode(userData.type);
+    // Put typeTextNode into type
+    type.appendChild(typeTextNode);
+    // Put type into userItemExtra
+    userItemExtra.appendChild(type);
+    
+    const hireable = document.createElement('h4');
+    hireable.classList.add("user-item-hireable");
+    const hireableTextNode = document.createTextNode(userData.hireable);
+    // Put hireableTextNode into hireable
+    hireable.appendChild(hireableTextNode);
+    // Put hireable into userItemExtra
+    userItemExtra.appendChild(hireable);
+    
     const userLinks = document.createElement('div');
     userLinks.classList.add("user-links");
     // Put userLinks into userItem
