@@ -44,10 +44,10 @@ main {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: #FFFEE;
+    background-color: #FFFDEE;
     padding: 20px;
     box-sizing: border-box;
-    box-shadow: 1px 1px 1px 1px #FEE;
+    box-shadow: 1px 1px 1px 1px #DDD;
 }
 
 .user-item-avatar {

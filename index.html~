@@ -19,8 +19,7 @@
         </div>
     </header>
     <main>
-        <h2>Developers in "Owerri"</h2>
-        <p id="empty-result-para" style="text-align:center;">Nothing to show <br> Search a location to get results.</p>
+        <h2>Owerri</h2>
         <ul id="users-list">
             <li>
                 <div class="user-item">
