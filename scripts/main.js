@@ -5,6 +5,12 @@ const searchBtn = document.getElementById("search-btn");
 const spinner = document.getElementById("spinner");
 const noResultPara = document.getElementById("empty-result-para");
 
+searchTextInput.addEventListener('keyup', e => {
+    if (e.keyCode == 13) {
+        startSearch();
+    }
+});
+
 const toggleNoResult = function toggleNoResultPara() {
     const initialState = "block";
     let mutableState = initialState;
@@ -53,7 +59,7 @@ function toggleInputsDisabled() {
     anim.toggleVisibility();
 }
 
-searchBtn.addEventListener('click', (event) => {
+function startSearch(event) {
     toggleInputsDisabled();
     getUsersByLocation(searchTextInput.value).then(function(res) {
         res.json().then(data => {
@@ -63,7 +69,9 @@ searchBtn.addEventListener('click', (event) => {
         });
     });
     searchTextInput.value = "";
-});
+}
+
+searchBtn.addEventListener('click', startSearch);
 
 async function getUsersByLocation(loc) {
     const result = await fetch(`${BASE_API_URL}?q=location:${loc}`);
