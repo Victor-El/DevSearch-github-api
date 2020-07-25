@@ -60,8 +60,8 @@ function populateDOMWithResult(userData) {
     
     const image = document.createElement('img');
     image.classList.add("user-item-avatar");
-    image.src = userData.imgSrc;
-    image.alt = userData.imgAlt;
+    image.src = userData.avatar;
+    image.alt = userData.alt;
     // Put image into userItem
     userItem.appendChild(image);
     
@@ -170,7 +170,9 @@ function populateDOMWithResult(userData) {
     enclosingListItem.appendChild(userItem);
     
     // add enclosingListItem to userList
-    userList.appendChild(enclosingListItem);
+    usersList.appendChild(enclosingListItem);
+    
+    
 }
 
 const anim = toggleAnimation();
@@ -181,33 +183,77 @@ function toggleInputsDisabled() {
     anim.toggleVisibility();
 }
 
-function fetchMore(userUrl, data) {
-    let userData = function() {
-        this.github: github, // html_url
-        this.avatar: avatar, // avatar_url
-        this.login: login, // login
+function fetchMore(userUrl) {
+    let UserData = function(data) {
+        this.github = data.github; // html_url
+        this.avatar = data.avatar; // avatar_url
+        this.login = data.login; // login
+        this.alt = `${this.login}'s avatar`;
         
-        this.following: following, // following
-        this.followers: followers, // followers
-        this.repos: repos, // public_repos
-        this.bio: bio, // bio
-        this.twitter: twitter, // twitter_username
-        this.name: name, // name
-        this.hirable: hireable, // hireable
-        this.type: type // type
+        this.following = data.following; // following
+        this.followers = data.followers; // followers
+        this.repos = data.repos; // public_repos
+        this.bio = data.bio; // bio
+        this.twitter = data.twitter; // twitter_username
+        this.name = data.name; // name
+        this.hireable = data.hireable; // hireable
+        this.type = data.type; // type
     };
+    
+    fetchMoreExt(userUrl).then(res => {
+        res.json().then(data => {
+        
+            let model = {
+                github: data.html_url,
+                avatar: data.avatar_url,
+                login: data.login,
+                following: data.following,
+                followers: data.followers,
+                repos: data.public_repos,
+                bio: data.bio,
+                twitter: data.twitter_username,
+                name: data.name,
+                hireable: data.hireable,
+                type: data.type
+            };
+            console.log(model);
+            value = new UserData(model);
+            // Start working
+            populateDOMWithResult(value);
+            
+        });
+        
+    });
+    
+}
+
+async function fetchMoreExt(url) {
+    const result = await fetch(url);
+    return result;
 }
 
 function startSearch(event) {
+    clearUsersList();
     toggleInputsDisabled();
-    getUsersByLocation(searchTextInput.value).then(function(res) {
+    getUsersByLocation(searchTextInput.value.trim()).then(function(res) {
         res.json().then(data => {
-            console.log(data);
+        
+            for (item of data.items) {
+                fetchMore(item.url);
+            }
+            
             toggleNoResult();
             toggleInputsDisabled();
+            
         });
     });
     searchTextInput.value = "";
+}
+
+function clearUsersList() {
+    while(usersList.firstChild) {
+        usersList.removeChild(usersList.firstChild);
+    }
 }
 
 searchBtn.addEventListener('click', startSearch);
