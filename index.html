@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width">
 	
 	<link rel="manifest" href="/manifest.json" />
+	<link rel="icon" href="favicon.ico" />
 	
 	<link rel="stylesheet" href="styles/style.css" type="text/css"/>
 </head>
@@ -55,7 +56,15 @@
     </main>
     
     <footer>Github Dev Search &copy; 2020 by CodeEnzyme</footer>
-    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/sw.js").then(worker => {
+                    console.log("Service worker registered with scope:",worker.scope);
+                });
+            });
+        }
+    </script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
