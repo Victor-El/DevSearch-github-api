@@ -1,6 +1,6 @@
 {
-  "name": "Github Devs Search",
-  "short_name": "Devs",
+  "name": "Github Dev Search",
+  "short_name": "Dev Search",
   "theme_color": "#84b9e2",
   "background_color": "#ffffff",
   "display": "minimal-ui",

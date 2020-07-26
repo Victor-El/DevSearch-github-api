@@ -1,1 +1,1 @@
-# DevSearch-github-api
+# DevsSearch-github-api
