@@ -124,7 +124,7 @@ function populateDOMWithResult(userData) {
     
     const following = document.createElement('h4');
     following.classList.add("user-item-following");
-    const followingTextNode = document.createTextNode(userData.following);
+    const followingTextNode = document.createTextNode("Following: " + userData.following);
     // Put textNode into following
     following.appendChild(followingTextNode);
     // Put following into userStatsDiv
@@ -132,7 +132,7 @@ function populateDOMWithResult(userData) {
     
     const followers = document.createElement('h4');
     followers.classList.add("user-item-followers");
-    const followersTextNode = document.createTextNode(userData.followers);
+    const followersTextNode = document.createTextNode("Followers: " + userData.followers);
     // Put textNode into followers
     followers.appendChild(followersTextNode);
     // Put followers into userStatsDiv
@@ -140,7 +140,7 @@ function populateDOMWithResult(userData) {
     
     const repos = document.createElement('h4');
     repos.classList.add("user-item-repos");
-    const reposTextNode = document.createTextNode(userData.repos);
+    const reposTextNode = document.createTextNode("Public Repos: " + userData.repos);
     // Put textNode into repos
     repos.appendChild(reposTextNode);
     // Put repos into userStatsDiv
@@ -148,6 +148,9 @@ function populateDOMWithResult(userData) {
     
     const userBio = document.createElement('p');
     userBio.classList.add("user-bio");
+    const userBioTextNode = document.createTextNode(userData.bio);
+    //Put textNode into userBio
+    userBio.appendChild(userBioTextNode);
     // Put userBio into userItem
     userItem.appendChild(userBio);
     
@@ -158,7 +161,7 @@ function populateDOMWithResult(userData) {
     
     const type = document.createElement('h4');
     type.classList.add("user-item-type");
-    const typeTextNode = document.createTextNode(userData.type);
+    const typeTextNode = document.createTextNode("Account Type: " + userData.type);
     // Put typeTextNode into type
     type.appendChild(typeTextNode);
     // Put type into userItemExtra
@@ -166,7 +169,7 @@ function populateDOMWithResult(userData) {
     
     const hireable = document.createElement('h4');
     hireable.classList.add("user-item-hireable");
-    const hireableTextNode = document.createTextNode(userData.hireable);
+    const hireableTextNode = document.createTextNode(userData.hireable ? "Hireable" : "Unavailable");
     // Put hireableTextNode into hireable
     hireable.appendChild(hireableTextNode);
     // Put hireable into userItemExtra
@@ -179,7 +182,7 @@ function populateDOMWithResult(userData) {
     
     const twitterProfile = document.createElement('a');
     twitterProfile.classList.add("user-item-twitter-profile");
-    twitterProfile.setAttribute("href", `${userData.twitter}`);
+    twitterProfile.setAttribute("href", `https://twitter.com/${userData.twitter}`);
     twitterProfile.setAttribute("target", "_blanck");
     const twitterProfileTextNode = document.createTextNode("Twitter Profile");
     // Put twitterProfileTextNode into twitterProfile
