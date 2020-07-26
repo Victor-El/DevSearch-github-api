@@ -16,23 +16,17 @@ searchTextInput.addEventListener('keyup', e => {
     }
 });
 
-const toggleNoResult = function() {
-    const initialState = "block";
-    let mutableState = initialState;
-    noResultPara.style.display = mutableState;
+function showSearchLoc() {
+    const devsLocTextNode = document.createTextNode(`Showing Developers in "${lastLocationSearched.trim().toUpperCase()}"`);
     
-    function toggle() {
-        if (mutableState === initialState) {
-            mutableState = "none";
-            noResultPara.style.display = mutableState;
-        } else {
-            mutableState = initialState;
-            noResultPara.style.display = mutableState;
-        }
+    // Remove all child nodes
+    while(devsLocationHeader.firstChild) {
+        devsLocationHeader.removeChild(devsLocationHeader.firstChild);
     }
     
-    return toggle;
-}();
+    // Put new textNode into devsLocationHeader
+    devsLocationHeader.appendChild(devsLocTextNode);
+}
 
 function toggleAnimation() {
     let state = spinner.style.visibility;
@@ -51,6 +45,40 @@ function toggleAnimation() {
         toggleVisibility
     };
 }
+
+const anim = toggleAnimation();
+
+const toggleNoResult = function() {
+    let toggleCount = 0;
+    const initialState = "block";
+    let mutableState = initialState;
+    noResultPara.style.display = mutableState;
+    
+    function toggle(state) {
+    
+        if (state && (state == "none" || state == "block")) {
+            mutableState = state;
+            noResultPara.style.display = mutableState;
+            return;
+        }
+        
+        if (toggleCount > 0) {
+            return;
+        }
+        
+        if (mutableState === initialState) {
+            mutableState = "none";
+            noResultPara.style.display = mutableState;
+        } else {
+            mutableState = initialState;
+            noResultPara.style.display = mutableState;
+        }
+        
+        toggleCount++;
+    }
+    
+    return toggle;
+}();
 
 function populateDOMWithResult(userData) {
     // Could have used template string but I'll stick to the hard
@@ -175,18 +203,9 @@ function populateDOMWithResult(userData) {
     // add enclosingListItem to userList
     usersList.appendChild(enclosingListItem);
     
-    const devsLocTextNode = document.createTextNode(`Showing Developers in "${lastLocationSearched.trim().toUpperCase()}"`);
+    showSearchLoc();
     
-    // Remove all child nodes
-    while(devsLocationHeader.firstChild) {
-        devsLocationHeader.removeChild(devsLocationHeader.firstChild);
-    }
-    
-    // Put new textNode into devsLocationHeader
-    devsLocationHeader.appendChild(devsLocTextNode);
 }
-
-const anim = toggleAnimation();
 
 function toggleInputsDisabled() {
     searchTextInput.disabled = !searchTextInput.disabled;
@@ -212,6 +231,12 @@ function fetchMore(userUrl) {
     };
     
     fetchMoreExt(userUrl).then(res => {
+        if (!res || !res.status == 200) {
+            if (res.status == 40) {
+                toggleNoResult("none");
+                return;
+            }
+        }
         res.json().then(data => {
         
             let model = {
@@ -248,12 +273,23 @@ function startSearch(event) {
     toggleInputsDisabled();
     getUsersByLocation(searchTextInput.value.trim()).then(function(res) {
         res.json().then(data => {
-        
-            for (item of data.items) {
-                fetchMore(item.url);
+            showSearchLoc();
+            if (data.items.length < 1) {
+                anim.toggleVisibility();
+                toggleNoResult("block");
+                return;
             }
             
-            toggleNoResult();
+            for (item of data.items) {
+                let retVal = fetchMore(item.url);
+                if (!retVal) {
+                    console.log("RetVal", retVal);
+                    alert("Search rate limit exceeded");
+                    break;
+                }
+            }
+            
+            toggleNoResult(null);
             toggleInputsDisabled();
             
         });
