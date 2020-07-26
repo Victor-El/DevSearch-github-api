@@ -1,6 +1,9 @@
+let lastLocationSearched = "";
+
 const BASE_API_URL = "https://api.github.com/search/users";
 const BASE_USER_API_URL = "https://api.github.com/users"
 
+const devsLocationHeader = document.getElementById("devs-loc");
 const usersList = document.getElementById("users-list");
 const searchTextInput = document.getElementById("search-text");
 const searchBtn = document.getElementById("search-btn");
@@ -172,7 +175,15 @@ function populateDOMWithResult(userData) {
     // add enclosingListItem to userList
     usersList.appendChild(enclosingListItem);
     
+    const devsLocTextNode = document.createTextNode(`Showing Developers in "${lastLocationSearched.trim().toUpperCase()}"`);
     
+    // Remove all child nodes
+    while(devsLocationHeader.firstChild) {
+        devsLocationHeader.removeChild(devsLocationHeader.firstChild);
+    }
+    
+    // Put new textNode into devsLocationHeader
+    devsLocationHeader.appendChild(devsLocTextNode);
 }
 
 const anim = toggleAnimation();
@@ -247,6 +258,7 @@ function startSearch(event) {
             
         });
     });
+    lastLocationSearched = searchTextInput.value;
     searchTextInput.value = "";
 }
 
