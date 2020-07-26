@@ -84,6 +84,9 @@ function populateDOMWithResult(userData) {
     // Could have used template string but I'll stick to the hard
     // way just this time
     
+    const afterImageDiv = document.createElement('div');
+    afterImageDiv.classList.add("after-image-div");
+    
     const enclosingListItem = document.createElement('li');
 
     const userItem = document.createElement('div');
@@ -96,10 +99,12 @@ function populateDOMWithResult(userData) {
     // Put image into userItem
     userItem.appendChild(image);
     
+    userItem.appendChild(afterImageDiv);
+    
     const userInfoDiv = document.createElement('div');
     userInfoDiv.classList.add("user-info");
     // Put userInfoDiv into userItem
-    userItem.appendChild(userInfoDiv);
+    afterImageDiv.appendChild(userInfoDiv);
     
     const userItemName = document.createElement('h3');
     userInfoDiv.classList.add("user-item-name");
@@ -152,12 +157,12 @@ function populateDOMWithResult(userData) {
     //Put textNode into userBio
     userBio.appendChild(userBioTextNode);
     // Put userBio into userItem
-    userItem.appendChild(userBio);
+    afterImageDiv.appendChild(userBio);
     
     const userItemExtra = document.createElement('div');
     userItemExtra.classList.add("user-item-extra");
     // Put userItemExtra into userItem
-    userItem.appendChild(userItemExtra);
+    afterImageDiv.appendChild(userItemExtra);
     
     const type = document.createElement('h4');
     type.classList.add("user-item-type");
@@ -178,7 +183,7 @@ function populateDOMWithResult(userData) {
     const userLinks = document.createElement('div');
     userLinks.classList.add("user-links");
     // Put userLinks into userItem
-    userItem.appendChild(userLinks);
+    afterImageDiv.appendChild(userLinks);
     
     const twitterProfile = document.createElement('a');
     twitterProfile.classList.add("user-item-twitter-profile");
@@ -235,7 +240,7 @@ function fetchMore(userUrl) {
     
     fetchMoreExt(userUrl).then(res => {
         if (!res || !res.status == 200) {
-            if (res.status == 40) {
+            if (res.status == 403) {
                 toggleNoResult("none");
                 return;
             }
@@ -284,8 +289,8 @@ function startSearch(event) {
             }
             
             for (item of data.items) {
-                let retVal = fetchMore(item.url);
-                if (!retVal) {
+                fetchMore(item.url);
+                if (res.status == 403) {
                     console.log("RetVal", retVal);
                     alert("Search rate limit exceeded");
                     break;

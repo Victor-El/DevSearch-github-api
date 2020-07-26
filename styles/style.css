@@ -40,6 +40,8 @@ main {
 }
 
 .user-item {
+    min-width: 80vw;
+    margin: 10px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -50,11 +52,60 @@ main {
     box-shadow: 1px 1px 1px 1px #FEE;
 }
 
+.after-image-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .user-item-avatar {
     height: 15%;
     width: 15%;
     margin: 20px;
     border-radius: 50%;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item-following, .user-item-followers, .user-item-repos {
+    margin: 5px;
+}
+
+.user-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-bio {
+    text-align: center;
+}
+
+.user-item-extra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item-type, .user-item-hireable {
+    margin: 5px;
+}
+
+.user-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item-twitter-profile, .user-item-github-profile {
+    margin: 5px;
 }
 
 #heading {
@@ -64,10 +115,20 @@ main {
 #search-area {
     display: flex;
     justify-content: center;
+    width: 70vw;
+    margin: 0 auto;
+    height: 35px;
+}
+
+#search-area > input {
+    display: block;
+    flex-grow: 5;
+    padding: 5px;
 }
 
 #search-btn {
     margin: 0px 15px;
+    flex-grow: 1
 }
 
 #spinner {
@@ -105,4 +166,30 @@ main {
         height: 25px;
         width: 25px;
     }
+}
+
+@media only screen and (max-width: 720px) {
+    .user-item-avatar {
+        height: 50%;
+        width: 50%;
+        margin: 20px;
+        border-radius: 50%;
+    }
+
+    .user-item {
+        flex-direction: column;
+    }
+    
+    .user-stats {
+        flex-direction: column;
+    }
+    
+    .user-item-extra {
+        flex-direction: column;
+    }
+    
+    .user-links {
+       flex-direction: column;
+    }
+    
 }
